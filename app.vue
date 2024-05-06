@@ -3,22 +3,23 @@
     <h1 class="text-2xl font-bold mb-4">Liste des offres d'emploi</h1>
     <div v-if="loading" class="text-gray-600">Chargement en cours...</div>
     <div v-else>
-      <div v-for="job in jobs" :key="job.id" class="bg-white shadow p-4 rounded mb-4">
-        <h2 class="text-xl font-bold">{{ job.title }}</h2>
-        <p class="text-gray-600">Date of creation :{{ job.createdAt }}</p>
-        <p class="text-gray-600">Slug :{{ job.slug }}</p>
-        <div class="mt-2">
-          <p class="mr-2">Status :{{ job.status }}</p>
-          <p class="mr-2">Type:{{ job.type }}</p>
-          <p class="mr-2">Application Email :{{ job. applicationEmail }}</p>
-
-       </div>
+      <div v-for="job in jobs" :key="job.id" class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-2">{{ job.title }}</h2>
+        <p class="text-gray-600 mb-2">Date de création : {{ formatDate(job.createdAt) }}</p>
+        <p class="text-gray-600 mb-2">Slug : {{ job.slug }}</p>
+        <div class="flex flex-wrap items-center">
+          <p class="mr-4 text-gray-700"><span class="font-bold">Statut :</span> {{ job.status }}</p>
+          <p class="mr-4 text-gray-700"><span class="font-bold">Type :</span> {{ job.type }}</p>
+          <p class="mr-4 text-gray-700"><span class="font-bold">Email d'application :</span> <a :href="'mailto:' + job.applicationEmail" class="text-blue-500 hover:underline">{{ job.applicationEmail }}</a></p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { format } from 'date-fns';
+
 export default {
   data() {
     return {
@@ -35,6 +36,11 @@ export default {
     } catch (error) {
       console.error('Error fetching data:', error);
       this.loading = false;
+    }
+  },
+  methods: {
+    formatDate(date) {
+      return format(new Date(date), 'dd/MM/yyyy HH:mm');
     }
   }
 }
