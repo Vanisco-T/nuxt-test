@@ -1,3 +1,6 @@
+# This is a simple installation of Nuxt and fetch data
+Then i am going to style the data on the user interface
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
